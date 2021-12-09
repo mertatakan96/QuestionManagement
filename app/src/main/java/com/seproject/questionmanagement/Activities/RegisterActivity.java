@@ -100,4 +100,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void signUpClickedRegister(View view) {
     }
+
+    public void genderButton(View view) {
+    }
 }

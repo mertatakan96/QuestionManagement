@@ -2,6 +2,7 @@ package com.seproject.questionmanagement.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -17,5 +18,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public void loginClickedLogin(View view) {
+        Intent intentToHome = new Intent(this,HomePageActivity.class);
+        startActivity(intentToHome);
     }
 }

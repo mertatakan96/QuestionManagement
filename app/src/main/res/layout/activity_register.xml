@@ -10,7 +10,7 @@
         android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -20,7 +20,7 @@
         android:id="@+id/emailText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:ems="10"
         android:hint="E-mail"
         android:inputType="textEmailAddress"
@@ -57,7 +57,7 @@
         android:id="@+id/editTextTextPersonName2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="13dp"
         android:ems="10"
         android:hint="Username"
         android:inputType="textPersonName"
@@ -67,14 +67,14 @@
 
     <Button
         android:id="@+id/datePickerButton"
+        style="?android:spinnerStyle"
         android:layout_width="230dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        android:textSize="18sp"
+        android:layout_marginTop="13dp"
+        android:onClick="openDatePicker"
         android:text="Select your Birthdate"
         android:textColor="@color/black"
-        style="?android:spinnerStyle"
-        android:onClick="openDatePicker"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName2"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
 
@@ -83,11 +83,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="151dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="13dp"
         android:layout_marginEnd="152dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/datePickerButton"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
         app:srcCompat="@drawable/ic_launcher_foreground" />
 
     <Button
@@ -95,9 +96,9 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="17dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="17dp"
-        android:layout_marginBottom="35dp"
+        android:layout_marginBottom="28dp"
         android:backgroundTint="@color/purple"
         android:fontFamily="monospace"
         android:onClick="signUpClickedRegister"
@@ -106,7 +107,45 @@
         app:cornerRadius="35sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewUserPhoto" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="101dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="82dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/datePickerButton">
+
+
+        <RadioButton
+            android:id="@+id/male"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
+            android:onClick="genderButton"
+            android:text="Male"
+            app:layout_constraintEnd_toStartOf="@+id/female"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/datePickerButton" />
+
+        <RadioButton
+            android:id="@+id/female"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:onClick="genderButton"
+            android:text="Female"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/datePickerButton" />
+    </RadioGroup>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
