@@ -7,28 +7,22 @@
     tools:context=".Activities.EditProfileActivity">
 
     <ImageView
-        android:id="@+id/editProfileImage"
-        android:layout_width="115dp"
-        android:layout_height="126dp"
+        android:id="@+id/imageView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/logo" />
 
     <TextView
-        android:id="@+id/editProfileUsername"
-        android:layout_width="100dp"
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editProfileImage"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="150dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="150dp"
-        android:gravity="center"
+        android:layout_marginTop="35dp"
         android:text="USERNAME"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editProfileImage" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 </androidx.constraintlayout.widget.ConstraintLayout>
