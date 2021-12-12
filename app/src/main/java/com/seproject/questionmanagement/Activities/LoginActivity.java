@@ -21,4 +21,9 @@ public class LoginActivity extends AppCompatActivity {
         Intent intentToHome = new Intent(this,HomePageActivity.class);
         startActivity(intentToHome);
     }
+
+    public void forgotPasswordClicked(View view) {
+        Intent intentToForgotPassword = new Intent(this,ForgetPasswordActivity.class);
+        startActivity(intentToForgotPassword);
+    }
 }
