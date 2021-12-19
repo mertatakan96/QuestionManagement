@@ -31,6 +31,11 @@ public class HomePageActivity extends AppCompatActivity {
                     case R.id.home:
                         return true;
 
+                    case R.id.create:
+                        startActivity(new Intent(getApplicationContext(),CreateQuestionnaireActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+
                     case R.id.questionnaires:
                         startActivity(new Intent(getApplicationContext(),QuestionnairesActivity.class));
                         overridePendingTransition(0,0);

@@ -33,6 +33,11 @@ public class QuestionnairesActivity extends AppCompatActivity {
                         overridePendingTransition(0,0);
                         return true;
 
+                    case R.id.create:
+                        startActivity(new Intent(getApplicationContext(),CreateQuestionnaireActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+
                     case R.id.questionnaires:
                         return true;
 

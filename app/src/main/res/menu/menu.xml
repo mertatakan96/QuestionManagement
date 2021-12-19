@@ -6,6 +6,10 @@
         android:icon="@drawable/ic_baseline_home_24"
         android:title="Home Page" />
     <item
+        android:id="@+id/create"
+        android:icon="@drawable/ic_baseline_post_add_24"
+        android:title="Create" />
+    <item
         android:id="@+id/questionnaires"
         android:icon="@drawable/ic_baseline_format_list_bulleted_24"
         android:title="Questionnaires" />

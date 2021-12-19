@@ -15,7 +15,8 @@
         android:background="@color/darkPurple"
         app:itemIconTint="@color/purple"
         app:itemTextColor="@color/purple"
-        app:menu="@menu/menu">
+        app:menu="@menu/menu"
+        app:labelVisibilityMode="labeled">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 

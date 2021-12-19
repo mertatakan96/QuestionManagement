@@ -14,7 +14,8 @@
         android:id="@+id/bottomBar"
         android:background="@color/darkPurple"
         app:itemIconTint="@color/purple"
-        app:itemTextColor="@color/purple">
+        app:itemTextColor="@color/purple"
+        app:labelVisibilityMode="labeled">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
