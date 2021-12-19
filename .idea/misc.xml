@@ -3,20 +3,29 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/ataka/AndroidStudioProjects/QuestionManagement/app/src/main/res/drawable/ic_add.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/ataka/AndroidStudioProjects/QuestionManagement/app/src/main/res/drawable/round_darkpurple.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/ataka/AndroidStudioProjects/QuestionManagement/app/src/main/res/drawable/round_primary.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/ataka/AndroidStudioProjects/QuestionManagement/app/src/main/res/layout/activity_admin_questionnaire.xml" value="0.3625" />
+        <entry key="..\:/Users/ataka/AndroidStudioProjects/QuestionManagement/app/src/main/res/layout/activity_create_answer.xml" value="0.3625" />
         <entry key="..\:/Users/ataka/AndroidStudioProjects/QuestionManagement/app/src/main/res/layout/activity_create_questionnaire.xml" value="0.3625" />
         <entry key="..\:/Users/ataka/AndroidStudioProjects/QuestionManagement/app/src/main/res/layout/activity_edit_profile.xml" value="0.3625" />
         <entry key="..\:/Users/ataka/AndroidStudioProjects/QuestionManagement/app/src/main/res/layout/activity_forget_password.xml" value="0.3625" />
         <entry key="..\:/Users/ataka/AndroidStudioProjects/QuestionManagement/app/src/main/res/layout/activity_forgot_password.xml" value="0.3625" />
         <entry key="..\:/Users/ataka/AndroidStudioProjects/QuestionManagement/app/src/main/res/layout/activity_home_page.xml" value="0.3625" />
         <entry key="..\:/Users/ataka/AndroidStudioProjects/QuestionManagement/app/src/main/res/layout/activity_login.xml" value="0.2957427536231884" />
-        <entry key="..\:/Users/ataka/AndroidStudioProjects/QuestionManagement/app/src/main/res/layout/activity_main.xml" value="0.2957427536231884" />
+        <entry key="..\:/Users/ataka/AndroidStudioProjects/QuestionManagement/app/src/main/res/layout/activity_main.xml" value="0.26621160409556316" />
         <entry key="..\:/Users/ataka/AndroidStudioProjects/QuestionManagement/app/src/main/res/layout/activity_profile.xml" value="0.3625" />
-        <entry key="..\:/Users/ataka/AndroidStudioProjects/QuestionManagement/app/src/main/res/layout/activity_questionnaires.xml" value="0.296875" />
+        <entry key="..\:/Users/ataka/AndroidStudioProjects/QuestionManagement/app/src/main/res/layout/activity_questionnaires.xml" value="0.25" />
         <entry key="..\:/Users/ataka/AndroidStudioProjects/QuestionManagement/app/src/main/res/layout/activity_register.xml" value="0.3625" />
         <entry key="..\:/Users/ataka/AndroidStudioProjects/QuestionManagement/app/src/main/res/layout/content_forgot_password.xml" value="0.3625" />
         <entry key="..\:/Users/ataka/AndroidStudioProjects/QuestionManagement/app/src/main/res/layout/fragment_first.xml" value="0.3625" />
         <entry key="..\:/Users/ataka/AndroidStudioProjects/QuestionManagement/app/src/main/res/layout/fragment_second.xml" value="0.3625" />
+        <entry key="..\:/Users/ataka/AndroidStudioProjects/QuestionManagement/app/src/main/res/layout/question_add_answers.xml" value="0.3625" />
+        <entry key="..\:/Users/ataka/AndroidStudioProjects/QuestionManagement/app/src/main/res/layout/questions_add_answers.xml" value="0.3625" />
+        <entry key="..\:/Users/ataka/AndroidStudioProjects/QuestionManagement/app/src/main/res/layout/row_add_answer.xml" value="0.3625" />
+        <entry key="..\:/Users/ataka/AndroidStudioProjects/QuestionManagement/app/src/main/res/layout/row_add_answers.xml" value="0.3625" />
+        <entry key="..\:/Users/ataka/AndroidStudioProjects/QuestionManagement/app/src/main/res/layout/row_add_question.xml" value="0.3625" />
         <entry key="..\:/Users/ataka/AndroidStudioProjects/QuestionManagement/app/src/main/res/menu/menu.xml" value="0.3625" />
       </map>
     </option>

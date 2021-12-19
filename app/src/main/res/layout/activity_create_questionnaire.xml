@@ -1,23 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.CreateQuestionnaireActivity">
+    tools:context=".Activities.CreateQuestionnaireActivity"
+    android:orientation="vertical">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomBar"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:text="Question"
+        android:textColor="@color/black"
+        android:textSize="15sp">
+
+    </TextView>
+
+    <LinearLayout
+        android:id="@+id/layout_question_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/darkPurple"
-        app:itemIconTint="@color/purple"
-        app:itemTextColor="@color/purple"
-        app:menu="@menu/menu"
-        app:labelVisibilityMode="labeled">
+        android:orientation="vertical">
+    </LinearLayout>
 
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+    <Button
+        android:id="@+id/button_add_question"
+        android:backgroundTint="@color/darkPurple"
+        app:cornerRadius="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="Add Question"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:textAllCaps="false"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:drawableRight="@drawable/ic_add">
+    </Button>
 
-</RelativeLayout>
+    <Button
+        android:id="@+id/button_create_questionnaire"
+        android:backgroundTint="@color/darkPurple"
+        app:cornerRadius="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Create Questionnaire"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:textAllCaps="false"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+    </Button>
+
+
+</LinearLayout>

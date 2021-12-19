@@ -19,18 +19,13 @@
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="135dp"
-        android:layout_height="199dp"
-        android:layout_above="@+id/bottomBar"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="123dp"
-        android:layout_marginTop="200dp"
-        android:layout_marginEnd="154dp"
-        android:layout_marginBottom="203dp"
-        android:text="Questionaires PAGE" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_questionnaires"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></androidx.recyclerview.widget.RecyclerView>
 
 </RelativeLayout>

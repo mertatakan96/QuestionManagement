@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.QuestionManagement">
         <activity
+            android:name=".Activities.CreateAnswerActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activities.CreateQuestionnaireActivity"
             android:exported="false" />
         <activity
