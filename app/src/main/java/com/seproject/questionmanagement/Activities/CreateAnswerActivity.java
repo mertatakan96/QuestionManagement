@@ -26,6 +26,9 @@ public class CreateAnswerActivity extends AppCompatActivity implements View.OnCl
     TextView questionName;
     ArrayList<String> questionnairesList = new ArrayList<>();
     ArrayList<String> answerList = new ArrayList<>();
+    String questionnaireTitle;
+    String durationTime;
+    int durationTimeInteger;
     private int questionNumber = 0;
     private int clickCount = 0;
     //Questionnaire questionnaire = new Questionnaire();
@@ -41,6 +44,25 @@ public class CreateAnswerActivity extends AppCompatActivity implements View.OnCl
         linearLayoutAnswer = findViewById(R.id.layout_answer_list);
 
         questionnairesList = (ArrayList<String>)getIntent().getExtras().getSerializable("list");
+
+        questionnaireTitle = (String)getIntent().getExtras().getSerializable("title");
+        System.out.println(questionnaireTitle); //title ı buradan çek
+
+        durationTime = (String)getIntent().getExtras().getSerializable("duration");
+        System.out.println(durationTime); // duration ı buradan çek
+        if (durationTime.equals("1 Day")){
+            durationTimeInteger = 1;
+        }
+        else if(durationTime.equals("3 Days")){
+            durationTimeInteger = 3;
+        }
+        else if(durationTime.equals("5 Days")){
+            durationTimeInteger = 5;
+        }
+        else if(durationTime.equals("7 Days")){
+            durationTimeInteger = 7;
+        }
+        System.out.println(durationTimeInteger); // int olarak koymak istersen buradan çek
 
 
         questionName = findViewById(R.id.question_name_answer);

@@ -8,15 +8,33 @@
     tools:context=".Activities.CreateQuestionnaireActivity"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
+
+
+    <EditText
+        android:id="@+id/questionnaireTitle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:text="Question"
+        android:hint="Enter Questionnaire Title"
         android:textColor="@color/black"
-        android:textSize="15sp">
+        android:textSize="25sp">
+    </EditText>
 
-    </TextView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Select Duration Time:"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"></TextView>
+
+    <Spinner
+        android:id="@+id/spinnerQuestionnaireDuration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp">
+    </Spinner>
 
     <LinearLayout
         android:id="@+id/layout_question_list"

@@ -72,24 +72,25 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
         android:onClick="openDatePicker"
-        android:text="Select your Birthdate"
+        android:hint="Select your Birthdate"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/registerUsername"
         app:layout_constraintTop_toBottomOf="@+id/registerUsername" />
 
     <ImageView
-        android:id="@+id/imageViewUserPhoto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/registerUserPhoto"
+        android:onClick="registerSelectPhoto"
+        android:layout_width="108dp"
+        android:layout_height="108dp"
         android:layout_marginStart="151dp"
         android:layout_marginTop="13dp"
         android:layout_marginEnd="152dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
-        app:srcCompat="@drawable/ic_launcher_foreground" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroupGender"
+        app:srcCompat="@drawable/pp" />
 
     <Button
         android:id="@+id/signUpButtonRegister"
@@ -109,10 +110,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewUserPhoto" />
+        app:layout_constraintTop_toBottomOf="@+id/registerUserPhoto" />
 
     <RadioGroup
-        android:id="@+id/radioGroup"
+        android:id="@+id/radioGroupGender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -130,7 +131,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="40dp"
-            android:onClick="genderButton"
             android:text="Male"
             app:layout_constraintEnd_toStartOf="@+id/female"
             app:layout_constraintStart_toStartOf="parent"
@@ -141,7 +141,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:onClick="genderButton"
             android:text="Female"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/datePickerButton" />

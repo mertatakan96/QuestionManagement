@@ -7,10 +7,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -25,11 +27,16 @@ public class CreateQuestionnaireActivity extends AppCompatActivity implements Vi
 
     BottomNavigationView bottomNavigationView;
 
-    LinearLayout linearLayoutName;
-    Button buttonAddName;
-    Button buttonCreateQuestionnaire;
+    private LinearLayout linearLayoutName;
+    private Button buttonAddName;
+    private Button buttonCreateQuestionnaire;
+    private ArrayAdapter<CharSequence> adapterDuration;
+    private Spinner questionnaireDurationSpinner;
+    private EditText titleEditText;
 
     ArrayList<String> questionList = new ArrayList<>();
+    String durationTime;
+    String questionnaireTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +73,19 @@ public class CreateQuestionnaireActivity extends AppCompatActivity implements Vi
         });*/
 
 
+        /*questionnaireDurationSpinner.findViewById(R.id.spinnerQuestionnaireDuration);
+        ArrayAdapter<String> myAdapterDuration = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.questionnaireDurationArray));
+        myAdapterDuration.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        questionnaireDurationSpinner.setAdapter(myAdapterDuration);*/
+
+        questionnaireDurationSpinner = findViewById(R.id.spinnerQuestionnaireDuration);
+        adapterDuration = ArrayAdapter.createFromResource(this, R.array.durationList, android.R.layout.simple_spinner_item);
+        adapterDuration.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        questionnaireDurationSpinner.setAdapter(adapterDuration);
+
+        titleEditText = findViewById(R.id.questionnaireTitle);
+
         linearLayoutName = findViewById(R.id.layout_question_list);
 
         buttonAddName = findViewById(R.id.button_add_question);
@@ -92,9 +112,13 @@ public class CreateQuestionnaireActivity extends AppCompatActivity implements Vi
             case R.id.button_create_questionnaire:
                 
                 if(checkIfValidAndRead()){
+                    questionnaireTitle = titleEditText.getText().toString();
+                    durationTime = questionnaireDurationSpinner.getSelectedItem().toString();
                     Intent intent = new Intent(this, CreateAnswerActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("list", questionList);
+                    bundle.putSerializable("title", questionnaireTitle);
+                    bundle.putSerializable("duration", durationTime);
                     intent.putExtras(bundle);
                     startActivity(intent);
                 }
