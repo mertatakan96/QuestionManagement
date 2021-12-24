@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.seproject.questionmanagement">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,6 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.QuestionManagement">
+        <activity
+            android:name=".Activities.CreateAnswerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.CreateQuestionnaireActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.EditProfileActivity"
+            android:exported="false" />
         <activity
             android:name=".Activities.ProfileActivity"
             android:exported="false" />

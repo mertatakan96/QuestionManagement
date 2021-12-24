@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">QuestionManagement</string>
+
+    <string-array name="durationList">
+        <item>1 Day</item>
+        <item>3 Days</item>
+        <item>5 Days</item>
+        <item>7 Days</item>
+    </string-array>
 </resources>
