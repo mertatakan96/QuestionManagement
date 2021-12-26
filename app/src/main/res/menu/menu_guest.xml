@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home_guest"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="Home Page"></item>
+
+    <item
+        android:id="@+id/guest_questionnaires"
+        android:icon="@drawable/ic_baseline_format_list_bulleted_24"
+        android:title="Questionnaires"></item>
+
+</menu>

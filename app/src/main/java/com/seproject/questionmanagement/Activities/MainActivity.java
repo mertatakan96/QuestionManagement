@@ -25,4 +25,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intentToLogin = new Intent(this,LoginActivity.class);
         startActivity(intentToLogin);
     }
+
+    public void guestClickedMain(View view) {
+        Intent intentToGuestHome = new Intent(this, GuestHomeActivity.class);
+        startActivity(intentToGuestHome);
+    }
 }
