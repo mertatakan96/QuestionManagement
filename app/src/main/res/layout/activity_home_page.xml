@@ -19,16 +19,89 @@
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/bottomBar"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="266dp"
-        android:layout_marginBottom="373dp"
-        android:text="HOME PAGE" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/homepage_image_first"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/homepage_about_us">
+            </ImageView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ABOUT US"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:textStyle="bold">
+            </TextView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="As the QuestionManagement team, we have turned our first aim to serve you well. The application you have seen is designed to open and vote an easy questionnaire. We were established as a small group and planned to develop without profit from the customer. We can say that what we do as a group founded in 2021 is the guarantee of what we will do. We are happy to appeal to our users in other applications as well."
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="15dp"></TextView>
+
+            <ImageView
+                android:id="@+id/homepage_image_second"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/homepage_ourmission"></ImageView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="OUR MISSION"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:textStyle="bold"></TextView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="We've turned our mission to creating apps that are easy to use and understand. The application you have seen is an example of this. It is designed with an easy installation and an interface that does not require training. You can open voting easily, you can vote and you can see the results. In addition, we aimed to keep privacy and security tight enough to give you the best service."
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="15dp"></TextView>
+
+            <ImageView
+                android:id="@+id/homepage_image_third"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/homepage_ourvision"></ImageView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="OUR VISION"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:textStyle="bold">
+            </TextView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="We put our vision to gain confidence and develop user-oriented applications. As a modest institution/organization, we first aim at customer satisfaction and put profit from this business in the background. In this way, we want to create a loyal customer base and to step into even better works together over time."
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                android:layout_marginBottom="100dp"></TextView>
+
+
+
+        </LinearLayout>
+    </ScrollView>
 
 
 </RelativeLayout>
