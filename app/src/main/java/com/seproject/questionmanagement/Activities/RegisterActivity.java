@@ -160,8 +160,8 @@ public class RegisterActivity extends AppCompatActivity {
         String username = usernameText.getText().toString();
         String birthdate = dateButton.getText().toString();
         String selectedGender = radioGenderButton.getText().toString();//null exception eklenebilir
-        int userRole = 0; //0:User, 1:ActiveUser, 2:Admin
-        int activeStatus = 0; // 0:dint apply 1:waiting approval
+        String userRole = "0"; //0:User, 1:ActiveUser, 2:Admin
+        String activeStatus = "0"; // 0:dint apply 1:waiting approval
 
 
         if (TextUtils.isEmpty(email)){
