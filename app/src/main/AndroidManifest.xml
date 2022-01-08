@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.QuestionManagement">
         <activity
+            android:name=".Activities.AdminApproveActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.ProfileAdminActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activities.GuestHomeActivity"
             android:exported="false" />
         <activity

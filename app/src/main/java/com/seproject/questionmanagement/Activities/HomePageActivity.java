@@ -71,9 +71,20 @@ public class HomePageActivity extends AppCompatActivity {
                                 return true;
 
                             case R.id.profile:
-                                startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
-                                overridePendingTransition(0,0);
-                                return true;
+                                if (userRole.equals("0")){
+                                    startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
+                                    overridePendingTransition(0,0);
+                                    return true;
+                                }else if (userRole.equals("1")){
+                                    startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
+                                    overridePendingTransition(0,0);
+                                    return true;
+                                }else{
+                                    startActivity(new Intent(getApplicationContext(),ProfileAdminActivity.class));
+                                    overridePendingTransition(0,0);
+                                    return true;
+                                }
+
                         }
                         return true;
                     }
