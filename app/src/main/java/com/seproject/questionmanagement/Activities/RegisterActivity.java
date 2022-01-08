@@ -161,7 +161,8 @@ public class RegisterActivity extends AppCompatActivity {
         String birthdate = dateButton.getText().toString();
         String selectedGender = radioGenderButton.getText().toString();//null exception eklenebilir
         String userRole = "0"; //0:User, 1:ActiveUser, 2:Admin
-        String activeStatus = "0"; // 0:dint apply 1:waiting approval
+        String activeStatus = "0"; // 0:dint apply 1:waiting approval 2:applied toBeActiveUser
+        String tcno = ""; //created empty
 
 
         if (TextUtils.isEmpty(email)){
@@ -209,6 +210,7 @@ public class RegisterActivity extends AppCompatActivity {
                                         user.put("photo", downloadUrl);
                                         user.put("userRole", userRole);
                                         user.put("activeStatus", activeStatus);
+                                        user.put("tcno",tcno);
                                         documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void unused) {

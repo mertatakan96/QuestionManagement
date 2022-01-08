@@ -1,17 +1,22 @@
 package com.seproject.questionmanagement.Activities;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -32,6 +37,8 @@ public class ProfileActivity extends AppCompatActivity {
     private String userRole;
     private ImageView imageViewPhoto;
     private TextView usernameText;
+    private String tcno;
+    private String activeStatus;
 
 
     @Override
@@ -124,5 +131,59 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void profilePageBeActiveProfileClicked(View view) {
+
+        DocumentReference documentReference = firebaseFirestore.collection("users").document(userID);
+        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot ds = task.getResult();
+                activeStatus = (String) ds.get("activeStatus");
+
+                if (activeStatus.equals("0")){
+                    AlertDialog.Builder myDialog = new AlertDialog.Builder(ProfileActivity.this);
+                    myDialog.setTitle("Enter your TC for approval");
+
+                    final EditText tcInput = new EditText(ProfileActivity.this);
+                    tcInput.setInputType(InputType.TYPE_CLASS_NUMBER);
+                    myDialog.setView(tcInput);
+
+                    myDialog.setPositiveButton("Send For Approval", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            tcno = tcInput.getText().toString();
+                            DocumentReference documentReference = firebaseFirestore.collection("users").document(userID);
+                            documentReference.update("tcno", tcno).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    documentReference.update("activeStatus", "1").addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            Toast.makeText(ProfileActivity.this, "Your approval has been sent!", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+
+                    myDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    myDialog.show();
+                } else {
+                    Toast.makeText(ProfileActivity.this, "You already send your tc for approval!", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+
+
     }
 }
