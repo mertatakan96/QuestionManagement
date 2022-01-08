@@ -1,33 +1,34 @@
 {
   "project_info": {
-    "project_number": "223889336370",
-    "project_id": "central-surf-299521",
-    "storage_bucket": "central-surf-299521.appspot.com"
+    "project_number": "321829134847",
+    "firebase_url": "https://questionmanagement-fcf77-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "questionmanagement-fcf77",
+    "storage_bucket": "questionmanagement-fcf77.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:223889336370:android:0ce20db2459b0c9220342b",
+        "mobilesdk_app_id": "1:321829134847:android:1ae784db764513cb0287ca",
         "android_client_info": {
           "package_name": "com.seproject.questionmanagement"
         }
       },
       "oauth_client": [
         {
-          "client_id": "223889336370-2p4jk6avkrfrbfv56qk633ia6l1lv0hi.apps.googleusercontent.com",
+          "client_id": "321829134847-nu4u6rvfrb722kc2ammdr2dhk7cbtv13.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDhvyglHSe1Yt9_xAuFRgfhNs2jjUJQnF0"
+          "current_key": "AIzaSyBFoW9QXtXxydaKNA2CwQ9epHtd8Jksekg"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "223889336370-2p4jk6avkrfrbfv56qk633ia6l1lv0hi.apps.googleusercontent.com",
+              "client_id": "321829134847-nu4u6rvfrb722kc2ammdr2dhk7cbtv13.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
