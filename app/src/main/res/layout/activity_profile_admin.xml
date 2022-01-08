@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.ProfileAdminActivity">
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/darkPurple"
+        app:itemIconTint="@color/purple"
+        app:itemTextColor="@color/purple"
+        app:menu="@menu/menu"
+        app:labelVisibilityMode="labeled">
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+    <Button
+        android:id="@+id/profilePageMyQuestionnaires"
+        android:layout_width="282dp"
+        android:layout_height="40dp"
+        android:layout_above="@+id/bottomBar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="215dp"
+        android:backgroundTint="@color/lightPurple"
+        android:fontFamily="monospace"
+        android:onClick="profilePageAdminMyQuestionnairesClicked"
+        android:text="my questionnaires"
+        android:textColor="@color/darkBlue"
+        app:cornerRadius="35sp" />
+
+    <Button
+        android:id="@+id/profilePageBeActive"
+        android:layout_width="282dp"
+        android:layout_height="40dp"
+        android:layout_above="@+id/bottomBar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="150dp"
+        android:backgroundTint="@color/lightPurple"
+        android:fontFamily="monospace"
+        android:onClick="profilePageAdminUserApplicationsClicked"
+        android:text="Active User Applications"
+        android:textColor="@color/darkBlue"
+        app:cornerRadius="35sp"></Button>
+
+    <Button
+        android:id="@+id/profilePageExit"
+        android:layout_width="282dp"
+        android:layout_height="40dp"
+        android:layout_above="@+id/bottomBar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="85dp"
+        android:backgroundTint="@color/lightPurple"
+        android:fontFamily="monospace"
+        android:onClick="profilePageAdminExitProfileClicked"
+        android:text="Exit"
+        android:textColor="@color/darkBlue"
+        app:cornerRadius="35sp"></Button>
+
+    <ImageView
+        android:id="@+id/profilePageProfileImage"
+        android:layout_width="123dp"
+        android:layout_height="123dp"
+        android:layout_above="@+id/bottomBar"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="444dp" />
+
+    <TextView
+        android:id="@+id/profilePageUsername"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="180dp"
+        android:gravity="center"
+        android:textAllCaps="true"
+        android:textStyle="bold" />
+
+</RelativeLayout>
