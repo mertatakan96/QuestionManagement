@@ -4,6 +4,7 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -17,6 +18,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.autofill.AutofillValue;
 import android.widget.Button;
@@ -27,14 +29,26 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.seproject.questionmanagement.R;
 import com.seproject.questionmanagement.databinding.ActivityRegisterBinding;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    public static final String TAG = "TAG";
     private DatePickerDialog datePickerDialog;
     private Button dateButton;
     private RadioGroup radioGenderGroup;
@@ -45,6 +59,12 @@ public class RegisterActivity extends AppCompatActivity {
     private ActivityResultLauncher<Intent> activityResultLauncher;
     private ActivityResultLauncher<String> permissionLauncher;
     private Uri imageData;
+
+    private FirebaseAuth firebaseAuth;
+    private FirebaseFirestore firebaseFirestore;
+    private FirebaseStorage firebaseStorage;
+    private StorageReference storageReference;
+    private String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +79,11 @@ public class RegisterActivity extends AppCompatActivity {
         passwordAgainText = findViewById(R.id.registerPasswordAgain);
         usernameText = findViewById(R.id.registerUsername);
         profilePhoto = findViewById(R.id.registerUserPhoto);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseStorage = FirebaseStorage.getInstance();
+        storageReference = firebaseStorage.getReference();
 
         registerLauncher();
     }
@@ -135,7 +160,8 @@ public class RegisterActivity extends AppCompatActivity {
         String username = usernameText.getText().toString();
         String birthdate = dateButton.getText().toString();
         String selectedGender = radioGenderButton.getText().toString();//null exception eklenebilir
-        String userRole = ""; //0:User, 1:ActiveUser, 2:Admin
+        String userRole = "0"; //0:User, 1:ActiveUser, 2:Admin
+        String activeStatus = "0"; // 0:dint apply 1:waiting approval
 
 
         if (TextUtils.isEmpty(email)){
@@ -158,6 +184,69 @@ public class RegisterActivity extends AppCompatActivity {
         }*/
         if (imageData == null){
             Toast.makeText(RegisterActivity.this, "Choose Profile Photo!", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            firebaseAuth.createUserWithEmailAndPassword(email,password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                @Override
+                public void onSuccess(AuthResult authResult) {
+                    userID = firebaseAuth.getCurrentUser().getUid();
+                    String imageName = "userPhotos/" + userID + ".jpg";
+                    //if (imageData != null) {
+                        storageReference.child(imageName).putFile(imageData).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                StorageReference photoReference = firebaseStorage.getReference(imageName);
+                                photoReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        String downloadUrl = uri.toString();
+                                        DocumentReference documentReference = firebaseFirestore.collection("users").document(userID);
+                                        Map<String, Object> user = new HashMap<>();
+                                        user.put("username", username);
+                                        user.put("email", email);
+                                        user.put("gender", selectedGender);
+                                        user.put("birthdate", birthdate);
+                                        user.put("photo", downloadUrl);
+                                        user.put("userRole", userRole);
+                                        user.put("activeStatus", activeStatus);
+                                        documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                Intent intentToHome = new Intent(RegisterActivity.this, HomePageActivity.class);
+                                                intentToHome.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                startActivity(intentToHome);
+                                                finish();
+                                                Log.d(TAG, "onSuccess: user profile is created for " + userID);
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.d(TAG, "onFailure: " + e.getLocalizedMessage().toString());
+                                            }
+                                        });
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.d(TAG,"onFailure: " + e.getLocalizedMessage().toString());
+                                    }
+                                });
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d(TAG, "onFailure: " + e.getLocalizedMessage().toString());
+                            }
+                        });
+                    //}
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(RegisterActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
         }
 
         System.out.println(email);

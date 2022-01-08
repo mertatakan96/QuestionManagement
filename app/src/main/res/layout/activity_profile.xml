@@ -54,6 +54,20 @@
         android:textColor="@color/darkBlue"
         app:cornerRadius="35sp" />
 
+    <Button
+        android:id="@+id/profilePageExit"
+        android:layout_width="282dp"
+        android:layout_height="40dp"
+        android:layout_above="@+id/bottomBar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="150dp"
+        android:backgroundTint="@color/lightPurple"
+        android:fontFamily="monospace"
+        android:onClick="profilePageExitProfileClicked"
+        android:text="Exit"
+        android:textColor="@color/darkBlue"
+        app:cornerRadius="35sp"></Button>
+
     <ImageView
         android:id="@+id/profilePageProfileImage"
         android:layout_width="123dp"
@@ -62,8 +76,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
-        android:layout_marginBottom="444dp"
-        app:srcCompat="@drawable/logo" />
+        android:layout_marginBottom="444dp" />
 
     <TextView
         android:id="@+id/profilePageUsername"
@@ -73,6 +86,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="180dp"
         android:gravity="center"
-        android:text="USERNAME" />
+        android:textAllCaps="true"
+        android:textStyle="bold" />
 
 </RelativeLayout>
