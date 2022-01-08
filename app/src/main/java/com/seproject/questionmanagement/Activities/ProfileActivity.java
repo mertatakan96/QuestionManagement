@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -28,6 +29,7 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
     private String userID;
+    private String userRole;
     private ImageView imageViewPhoto;
     private TextView usernameText;
 
@@ -45,32 +47,46 @@ public class ProfileActivity extends AppCompatActivity {
         userID = firebaseAuth.getCurrentUser().getUid();
         getData();
 
-        bottomNavigationView = findViewById(R.id.bottomBar);
-
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+        DocumentReference documentReference = firebaseFirestore.collection("users").document(userID);
+        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot ds = task.getResult();
+                userRole = (String) ds.get("userRole");
 
-                switch (item.getItemId()){
-                    case R.id.home:
-                        startActivity(new Intent(getApplicationContext(),HomePageActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
+                bottomNavigationView = findViewById(R.id.bottomBar);
 
-                    case R.id.create:
-                        startActivity(new Intent(getApplicationContext(),CreateQuestionnaireActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
+                bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                    case R.id.questionnaires:
-                        startActivity(new Intent(getApplicationContext(),QuestionnairesActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
+                        switch (item.getItemId()){
+                            case R.id.home:
+                                startActivity(new Intent(getApplicationContext(),HomePageActivity.class));
+                                overridePendingTransition(0,0);
+                                return true;
 
-                    case R.id.profile:
+                            case R.id.create:
+                                if (userRole.equals("0")){
+                                    Toast.makeText(ProfileActivity.this, "Only Active User can create Questionnaires", Toast.LENGTH_SHORT).show();
+                                    return true;
+                                }else {
+                                    startActivity(new Intent(getApplicationContext(),CreateQuestionnaireActivity.class));
+                                    overridePendingTransition(0,0);
+                                    return true;
+                                }
+
+                            case R.id.questionnaires:
+                                startActivity(new Intent(getApplicationContext(),QuestionnairesActivity.class));
+                                overridePendingTransition(0,0);
+                                return true;
+
+                            case R.id.profile:
+                                return true;
+                        }
                         return true;
-                }
-                return true;
+                    }
+                });
             }
         });
 
