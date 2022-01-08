@@ -11,17 +11,22 @@ import android.widget.ImageView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.seproject.questionmanagement.R;
 
 public class ProfileActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
 
+    private FirebaseAuth firebaseAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        firebaseAuth = FirebaseAuth.getInstance();
 
         bottomNavigationView = findViewById(R.id.bottomBar);
 
@@ -59,5 +64,14 @@ public class ProfileActivity extends AppCompatActivity {
     public void profilePageEditProfileClicked(View view) {
         Intent intentToEditProfile = new Intent(this,EditProfileActivity.class);
         startActivity(intentToEditProfile);
+    }
+
+    public void profilePageExitProfileClicked(View view) {
+
+        firebaseAuth.signOut();
+
+        Intent signOutIntent = new Intent(ProfileActivity.this,MainActivity.class);
+        startActivity(signOutIntent);
+        finish();
     }
 }
