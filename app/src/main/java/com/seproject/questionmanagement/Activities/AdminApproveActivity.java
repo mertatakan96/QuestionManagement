@@ -100,6 +100,7 @@ public class AdminApproveActivity extends AppCompatActivity {
                         String email = (String) data.get("email");
                         String tcno = (String) data.get("tcno");
                         String birthdate = (String) data.get("birthdate");
+                        String userID = (String) data.get("userID");
 
 
 
@@ -112,12 +113,13 @@ public class AdminApproveActivity extends AppCompatActivity {
                                 builder.setMessage("Are you sure for the approvement");
 
                                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                    @RequiresApi(api = Build.VERSION_CODES.N)
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
 
-                                        data.replace("activeStatus", "2");
-                                        data.replace("userRole","1");
+                                        DocumentReference documentReference = firebaseFirestore.collection("users").document(userID);
+
+                                        documentReference.update("activeStatus", "2");
+                                        documentReference.update("userRole", "1");
 
                                     }
                                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
