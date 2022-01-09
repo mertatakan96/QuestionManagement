@@ -100,6 +100,11 @@ public class EditProfileActivity extends AppCompatActivity {
                     Log.d(TAG, e.getLocalizedMessage());
                 }
             });
+        } else {
+            DocumentReference documentReference = firebaseFirestore.collection("users").document(userID);
+            if (!username.equals("")){
+                documentReference.update("username", username);
+            }
         }
 
         Toast.makeText(EditProfileActivity.this, "Your Profile Edited!", Toast.LENGTH_SHORT).show();

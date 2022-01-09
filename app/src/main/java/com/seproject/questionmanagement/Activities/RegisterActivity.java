@@ -109,7 +109,9 @@ public class RegisterActivity extends AppCompatActivity {
         int style = AlertDialog.THEME_HOLO_LIGHT;
 
         datePickerDialog = new DatePickerDialog(this, style, dateSetListener , year, month, day);
-        datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis()); // block the future dates
+        datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis() - 568025136000L); // block the future dates and check for 18 year old validation
+
+        System.out.println(System.currentTimeMillis());
     }
 
     private String makeDateString(int day, int month, int year) {

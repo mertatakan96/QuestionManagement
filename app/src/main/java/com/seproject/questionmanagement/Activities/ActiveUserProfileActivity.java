@@ -113,6 +113,8 @@ public class ActiveUserProfileActivity extends AppCompatActivity {
     }
 
     public void activeUserProfilePageMyQuestionnairesClicked(View view) {
+        Intent intentToMyQuestionnaire = new Intent(ActiveUserProfileActivity.this, MyQuestionnairesActivity.class);
+        startActivity(intentToMyQuestionnaire);
     }
 
     public void activeUserProfilePageExitClicked(View view) {
