@@ -108,6 +108,8 @@ public class ActiveUserProfileActivity extends AppCompatActivity {
     }
 
     public void activeUserProfilePageEditProfileClicked(View view) {
+        Intent intentToEditProfile = new Intent(this,EditProfileActivity.class);
+        startActivity(intentToEditProfile);
     }
 
     public void activeUserProfilePageMyQuestionnairesClicked(View view) {
