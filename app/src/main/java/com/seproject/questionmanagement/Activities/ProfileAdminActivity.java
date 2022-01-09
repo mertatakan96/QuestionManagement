@@ -47,7 +47,7 @@ public class ProfileAdminActivity extends AppCompatActivity {
 
         getData();
 
-        getData();
+        //getData();
 
         DocumentReference documentReference = firebaseFirestore.collection("users").document(userID);
         documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
