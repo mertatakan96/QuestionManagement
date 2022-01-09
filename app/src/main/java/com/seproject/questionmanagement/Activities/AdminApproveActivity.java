@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -34,6 +35,7 @@ public class AdminApproveActivity extends AppCompatActivity {
     private ArrayList<String> applicationEmailList;
     private ArrayList<String> applicationTcnoList;
     private ArrayList<String> applicationBirthdateList;
+    private ArrayList<String> applicationUserIDList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +46,14 @@ public class AdminApproveActivity extends AppCompatActivity {
         applicationEmailList = new ArrayList<>();
         applicationTcnoList = new ArrayList<>();
         applicationBirthdateList = new ArrayList<>();
+        applicationUserIDList = new ArrayList<>();
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
 
         RecyclerView recyclerView = findViewById(R.id.recyclerViewApprove);
         recyclerView.setLayoutManager(new LinearLayoutManager(AdminApproveActivity.this));
-        applicationRecyclerAdapter = new ListApplicationRecyclerAdapter(applicationUsernameList,applicationEmailList,applicationTcnoList,applicationBirthdateList);
+        applicationRecyclerAdapter = new ListApplicationRecyclerAdapter(applicationUsernameList,applicationEmailList,applicationTcnoList,applicationBirthdateList, applicationUserIDList);
         recyclerView.setAdapter(applicationRecyclerAdapter);
 
 
@@ -86,7 +89,11 @@ public class AdminApproveActivity extends AppCompatActivity {
     }
 
     private void getData(){
-
+        applicationUsernameList.clear();
+        applicationEmailList.clear();
+        applicationTcnoList.clear();
+        applicationBirthdateList.clear();
+        applicationUserIDList.clear();
         CollectionReference collectionReference = firebaseFirestore.collection("users");
 
         collectionReference.whereEqualTo("activeStatus", "1").addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -102,13 +109,17 @@ public class AdminApproveActivity extends AppCompatActivity {
                         String birthdate = (String) data.get("birthdate");
                         String userID = (String) data.get("userID");
 
-
+                        applicationUsernameList.add(username);
+                        applicationEmailList.add(email);
+                        applicationTcnoList.add(tcno);
+                        applicationBirthdateList.add(birthdate);
+                        applicationUserIDList.add(userID);
 
 
                         applicationRecyclerAdapter.setOnItemClickListener(new ListApplicationRecyclerAdapter.OnItemClickListener() {
                             @Override
                             public void onApproveClicked(int position) {
-                                System.out.println("Clicked" + applicationUsernameList.get(position));
+                                System.out.println("Clicked: " + applicationUsernameList.get(position) + " UserID: " + applicationUserIDList.get(position));
                                 AlertDialog.Builder builder = new AlertDialog.Builder(AdminApproveActivity.this);
                                 builder.setMessage("Are you sure for the approvement");
 
@@ -116,10 +127,14 @@ public class AdminApproveActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
 
-                                        DocumentReference documentReference = firebaseFirestore.collection("users").document(userID);
+                                        DocumentReference documentReference = firebaseFirestore.collection("users").document(applicationUserIDList.get(position));
 
                                         documentReference.update("activeStatus", "2");
                                         documentReference.update("userRole", "1");
+
+                                        Intent intentToProfile = new Intent(AdminApproveActivity.this, ProfileAdminActivity.class);
+                                        startActivity(intentToProfile);
+
 
                                     }
                                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -132,12 +147,6 @@ public class AdminApproveActivity extends AppCompatActivity {
                             }
                         });
 
-
-
-                        applicationUsernameList.add(username);
-                        applicationEmailList.add(email);
-                        applicationTcnoList.add(tcno);
-                        applicationBirthdateList.add(birthdate);
                         applicationRecyclerAdapter.notifyDataSetChanged();
 
 

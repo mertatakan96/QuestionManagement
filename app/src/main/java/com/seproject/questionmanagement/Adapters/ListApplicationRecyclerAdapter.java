@@ -19,6 +19,7 @@ public class ListApplicationRecyclerAdapter extends RecyclerView.Adapter<ListApp
     private ArrayList<String> applicationEmailList;
     private ArrayList<String> applicationTcnoList;
     private ArrayList<String> applicationBirthdateList;
+    private ArrayList<String> applicationUserIDList;
     private OnItemClickListener itemClickListener;
 
     public interface OnItemClickListener {
@@ -29,11 +30,12 @@ public class ListApplicationRecyclerAdapter extends RecyclerView.Adapter<ListApp
         itemClickListener = listener;
     }
 
-    public ListApplicationRecyclerAdapter(ArrayList<String> applicationUsernameList, ArrayList<String> applicationEmailList, ArrayList<String> applicationTcnoList, ArrayList<String> applicationBirthdateList) {
+    public ListApplicationRecyclerAdapter(ArrayList<String> applicationUsernameList, ArrayList<String> applicationEmailList, ArrayList<String> applicationTcnoList, ArrayList<String> applicationBirthdateList, ArrayList<String> applicationUserIDList) {
         this.applicationUsernameList = applicationUsernameList;
         this.applicationEmailList = applicationEmailList;
         this.applicationTcnoList = applicationTcnoList;
         this.applicationBirthdateList = applicationBirthdateList;
+        this.applicationUserIDList = applicationUserIDList;
     }
 
     @NonNull
