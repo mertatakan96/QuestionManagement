@@ -78,7 +78,7 @@ public class QuestionnairesActivity extends AppCompatActivity {
                                     overridePendingTransition(0,0);
                                     return true;
                                 }else if (userRole.equals("1")){
-                                    startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
+                                    startActivity(new Intent(getApplicationContext(),ActiveUserProfileActivity.class));
                                     overridePendingTransition(0,0);
                                     return true;
                                 }else{

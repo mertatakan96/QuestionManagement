@@ -211,6 +211,7 @@ public class RegisterActivity extends AppCompatActivity {
                                         user.put("userRole", userRole);
                                         user.put("activeStatus", activeStatus);
                                         user.put("tcno",tcno);
+                                        user.put("userID", userID);
                                         documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void unused) {

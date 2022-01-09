@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.QuestionManagement">
         <activity
+            android:name=".Activities.ActiveUserProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activities.AdminApproveActivity"
             android:exported="false" />
         <activity
