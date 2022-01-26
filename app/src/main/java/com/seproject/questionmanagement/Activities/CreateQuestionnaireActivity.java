@@ -43,49 +43,12 @@ public class CreateQuestionnaireActivity extends AppCompatActivity implements Vi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_questionnaire);
 
-        /*bottomNavigationView = findViewById(R.id.bottomBar);
-
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-                switch (item.getItemId()){
-                    case R.id.home:
-                        startActivity(new Intent(getApplicationContext(),HomePageActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-
-                    case R.id.create:
-                        return true;
-
-                    case R.id.questionnaires:
-                        startActivity(new Intent(getApplicationContext(),QuestionnairesActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-
-                    case R.id.profile:
-                        startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                }
-                return true;
-            }
-        });*/
-
-
-        /*questionnaireDurationSpinner.findViewById(R.id.spinnerQuestionnaireDuration);
-        ArrayAdapter<String> myAdapterDuration = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.questionnaireDurationArray));
-        myAdapterDuration.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        questionnaireDurationSpinner.setAdapter(myAdapterDuration);*/
 
         questionnaireDurationSpinner = findViewById(R.id.spinnerQuestionnaireDuration);
         adapterDuration = ArrayAdapter.createFromResource(this, R.array.durationList, android.R.layout.simple_spinner_item);
         adapterDuration.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         questionnaireDurationSpinner.setAdapter(adapterDuration);
-
         titleEditText = findViewById(R.id.questionnaireTitle);
-
         linearLayoutName = findViewById(R.id.layout_question_list);
 
         buttonAddName = findViewById(R.id.button_add_question);

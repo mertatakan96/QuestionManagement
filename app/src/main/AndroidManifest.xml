@@ -11,9 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.QuestionManagement">
-        <activity
-            android:name=".Activities.ActiveUserProfileActivity"
-            android:exported="false" />
+        <activity android:name=".Activities.SendRequestActivity"></activity>
+        <activity android:name=".QuestionnaireScreens.AllQuestionnaires" />
+        <activity android:name=".CreateScreens.CreateQuestion" />
+        <activity android:name=".QuestionnaireScreens.QuestionnaireProfile" />
+        <activity android:name=".CreateScreens.CreateTemplate" />
         <activity
             android:name=".Activities.AdminApproveActivity"
             android:exported="false" />

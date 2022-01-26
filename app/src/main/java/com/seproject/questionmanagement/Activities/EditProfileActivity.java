@@ -115,16 +115,7 @@ public class EditProfileActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 DocumentSnapshot ds = task.getResult();
                 userRole = (String) ds.get("userRole");
-
-                if (userRole.equals("0")){
-                    Intent intentToProfile = new Intent(EditProfileActivity.this,ProfileActivity.class);
-                    startActivity(intentToProfile);
-                    finish();
-                }else if (userRole.equals("1")){
-                    Intent intentToActiveProfile = new Intent(EditProfileActivity.this,ActiveUserProfileActivity.class);
-                    startActivity(intentToActiveProfile);
-                    finish();
-                }
+                finish();
 
             }
         });

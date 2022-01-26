@@ -49,4 +49,5 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.google.firebase:firebase-crashlytics'
+    implementation 'com.firebaseui:firebase-ui-firestore:6.2.1'
 }

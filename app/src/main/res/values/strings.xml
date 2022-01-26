@@ -7,4 +7,12 @@
         <item>5 Days</item>
         <item>7 Days</item>
     </string-array>
+
+    <array name="durations">
+        <item>1 Day</item>
+        <item>2 Day</item>
+        <item>3 Day</item>
+        <item>4 Day</item>
+        <item>5 Day</item>
+    </array>
 </resources>

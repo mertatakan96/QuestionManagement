@@ -31,9 +31,8 @@
             <ImageView
                 android:id="@+id/homepage_image_first"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/homepage_about_us">
-            </ImageView>
+                android:layout_height="250dp"
+                app:srcCompat="@drawable/homepage_about_us"></ImageView>
 
             <TextView
                 android:layout_width="match_parent"

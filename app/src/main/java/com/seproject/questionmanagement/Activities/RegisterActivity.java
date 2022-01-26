@@ -5,6 +5,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -17,6 +18,8 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -34,8 +37,12 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -78,6 +85,7 @@ public class RegisterActivity extends AppCompatActivity {
         passwordText = findViewById(R.id.registerPassword);
         passwordAgainText = findViewById(R.id.registerPasswordAgain);
         usernameText = findViewById(R.id.registerUsername);
+
         profilePhoto = findViewById(R.id.registerUserPhoto);
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -113,6 +121,8 @@ public class RegisterActivity extends AppCompatActivity {
 
         System.out.println(System.currentTimeMillis());
     }
+
+
 
     private String makeDateString(int day, int month, int year) {
         return getMonthFormat(month) + " " + day + " " + year;
@@ -162,25 +172,31 @@ public class RegisterActivity extends AppCompatActivity {
         String username = usernameText.getText().toString();
         String birthdate = dateButton.getText().toString();
         String selectedGender = radioGenderButton.getText().toString();//null exception eklenebilir
-        String userRole = "0"; //0:User, 1:ActiveUser, 2:Admin
+        boolean userRole = false; //0:User, 1:ActiveUser, 2:Admin
         String activeStatus = "0"; // 0:dint apply 1:waiting approval 2:applied toBeActiveUser
         String tcno = ""; //created empty
 
 
+
         if (TextUtils.isEmpty(email)){
             emailText.setError("E-mail is required!");
+            return;
         }
         if (TextUtils.isEmpty(password)){
             passwordText.setError("Password is required!");
+            return;
         }
         if (!password.equals(passwordAgain) || TextUtils.isEmpty(passwordAgain)){
             passwordAgainText.setError("Password are not match!");
+            return;
         }
         if (TextUtils.isEmpty(username)){
             usernameText.setError("Username is required!");
+            return;
         }
         if (TextUtils.isEmpty(birthdate)){
             dateButton.setError("Birthdate is required");
+            return;
         }
         /*if (TextUtils.isEmpty(selectedGender)){
             radioGenderButton.setError("Gender is required!");
@@ -189,69 +205,100 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(RegisterActivity.this, "Choose Profile Photo!", Toast.LENGTH_SHORT).show();
         }
         else {
-            firebaseAuth.createUserWithEmailAndPassword(email,password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+
+            //Users Collection Ref
+            CollectionReference documentReference = firebaseFirestore.collection("users");
+
+            //Check username
+            documentReference.whereEqualTo("username", username).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                 @Override
-                public void onSuccess(AuthResult authResult) {
-                    userID = firebaseAuth.getCurrentUser().getUid();
-                    String imageName = "userPhotos/" + userID + ".jpg";
-                    //if (imageData != null) {
-                        storageReference.child(imageName).putFile(imageData).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+                    // If the file containing the username is not found, isEmpty returns true
+                    if(queryDocumentSnapshots.isEmpty()){
+
+                        firebaseAuth.createUserWithEmailAndPassword(email,password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                             @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                StorageReference photoReference = firebaseStorage.getReference(imageName);
-                                photoReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            public void onSuccess(AuthResult authResult) {
+                                userID = firebaseAuth.getCurrentUser().getUid();
+                                String imageName = "userPhotos/" + userID + ".jpg";
+                                //if (imageData != null) {
+                                storageReference.child(imageName).putFile(imageData).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                     @Override
-                                    public void onSuccess(Uri uri) {
-                                        String downloadUrl = uri.toString();
-                                        DocumentReference documentReference = firebaseFirestore.collection("users").document(userID);
-                                        Map<String, Object> user = new HashMap<>();
-                                        user.put("username", username);
-                                        user.put("email", email);
-                                        user.put("gender", selectedGender);
-                                        user.put("birthdate", birthdate);
-                                        user.put("photo", downloadUrl);
-                                        user.put("userRole", userRole);
-                                        user.put("activeStatus", activeStatus);
-                                        user.put("tcno",tcno);
-                                        user.put("userID", userID);
-                                        documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                        StorageReference photoReference = firebaseStorage.getReference(imageName);
+                                        photoReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                             @Override
-                                            public void onSuccess(Void unused) {
-                                                Intent intentToHome = new Intent(RegisterActivity.this, HomePageActivity.class);
-                                                intentToHome.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                startActivity(intentToHome);
-                                                finish();
-                                                Log.d(TAG, "onSuccess: user profile is created for " + userID);
+                                            public void onSuccess(Uri uri) {
+                                                String downloadUrl = uri.toString();
+
+                                                Map<String, Object> user = new HashMap<>();
+                                                user.put("username", username);
+                                                user.put("email", email);
+                                                user.put("gender", selectedGender);
+                                                user.put("birthdate", birthdate);
+                                                user.put("photo", downloadUrl);
+                                                user.put("userRole", userRole);
+                                                user.put("activeStatus", activeStatus);
+                                                user.put("tcno",tcno);
+                                                user.put("userID", userID);
+                                                documentReference.document(userID).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
+                                                        Intent intentToHome = new Intent(RegisterActivity.this, HomePageActivity.class);
+                                                        intentToHome.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                        startActivity(intentToHome);
+                                                        finish();
+                                                        Log.d(TAG, "onSuccess: user profile is created for " + userID);
+                                                    }
+                                                }).addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Log.d(TAG, "onFailure: " + e.getLocalizedMessage().toString());
+                                                    }
+                                                });
                                             }
                                         }).addOnFailureListener(new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
-                                                Log.d(TAG, "onFailure: " + e.getLocalizedMessage().toString());
+                                                Log.d(TAG,"onFailure: " + e.getLocalizedMessage().toString());
                                             }
                                         });
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Log.d(TAG,"onFailure: " + e.getLocalizedMessage().toString());
+                                        Log.d(TAG, "onFailure: " + e.getLocalizedMessage().toString());
                                     }
                                 });
+                                //}
+
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Log.d(TAG, "onFailure: " + e.getLocalizedMessage().toString());
+                                Toast.makeText(RegisterActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                             }
                         });
-                    //}
+                    }
 
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(RegisterActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    // If the file containing the username is found, isEmpty returns  false
+                    else {
+                        usernameText.setError("Username is not available!");
+                    }
+
+
+
+                    //Toast.makeText(RegisterActivity.this, queryDocumentSnapshots.isEmpty()?"No data Found":"Data found", Toast.LENGTH_SHORT).show();
                 }
             });
+
+
+
+
+
+
+
         }
 
         System.out.println(email);

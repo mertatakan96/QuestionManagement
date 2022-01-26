@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -37,6 +38,8 @@ public class AdminApproveActivity extends AppCompatActivity {
     private ArrayList<String> applicationBirthdateList;
     private ArrayList<String> applicationUserIDList;
 
+    private ImageView mBack;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +50,10 @@ public class AdminApproveActivity extends AppCompatActivity {
         applicationTcnoList = new ArrayList<>();
         applicationBirthdateList = new ArrayList<>();
         applicationUserIDList = new ArrayList<>();
+
+        mBack=findViewById(R.id.back);
+
+        mBack.setOnClickListener(view -> onBackPressed());
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
@@ -130,10 +137,8 @@ public class AdminApproveActivity extends AppCompatActivity {
                                         DocumentReference documentReference = firebaseFirestore.collection("users").document(applicationUserIDList.get(position));
 
                                         documentReference.update("activeStatus", "2");
-                                        documentReference.update("userRole", "1");
 
-                                        Intent intentToProfile = new Intent(AdminApproveActivity.this, ProfileAdminActivity.class);
-                                        startActivity(intentToProfile);
+                                      finish();
 
 
                                     }

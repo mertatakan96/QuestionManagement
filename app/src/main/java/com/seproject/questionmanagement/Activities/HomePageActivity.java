@@ -18,6 +18,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.seproject.questionmanagement.CreateScreens.CreateTemplate;
+import com.seproject.questionmanagement.QuestionnaireScreens.AllQuestionnaires;
 import com.seproject.questionmanagement.R;
 
 public class HomePageActivity extends AppCompatActivity {
@@ -27,7 +29,8 @@ public class HomePageActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
     private String userID;
-    private String userRole;
+    private boolean isAdmin;
+    private String isActive;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,88 +42,62 @@ public class HomePageActivity extends AppCompatActivity {
         userID = firebaseAuth.getCurrentUser().getUid();
 
         DocumentReference documentReference = firebaseFirestore.collection("users").document(userID);
-        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                DocumentSnapshot ds = task.getResult();
-                userRole = (String) ds.get("userRole");
+        documentReference.get().addOnCompleteListener(task -> {
+            DocumentSnapshot ds = task.getResult();
+            isAdmin =  ds.getBoolean("userRole");
+            isActive = ds.getString("activeStatus");
 
-                bottomNavigationView = findViewById(R.id.bottomBar);
+            bottomNavigationView = findViewById(R.id.bottomBar);
 
-                bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-                        switch (item.getItemId()){
-                            case R.id.home:
-                                return true;
-
-                            case R.id.create:
-                                if (userRole.equals("0")){
-                                    Toast.makeText(HomePageActivity.this, "Only Active User can create Questionnaires", Toast.LENGTH_SHORT).show();
-                                    return true;
-                                }else {
-                                    startActivity(new Intent(getApplicationContext(),CreateQuestionnaireActivity.class));
-                                    overridePendingTransition(0,0);
-                                    return true;
-                                }
-
-                            case R.id.questionnaires:
-                                startActivity(new Intent(getApplicationContext(),QuestionnairesActivity.class));
-                                overridePendingTransition(0,0);
-                                return true;
-
-                            case R.id.profile:
-                                if (userRole.equals("0")){
-                                    startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
-                                    overridePendingTransition(0,0);
-                                    return true;
-                                }else if (userRole.equals("1")){
-                                    startActivity(new Intent(getApplicationContext(),ActiveUserProfileActivity.class));
-                                    overridePendingTransition(0,0);
-                                    return true;
-                                }else{
-                                    startActivity(new Intent(getApplicationContext(),ProfileAdminActivity.class));
-                                    overridePendingTransition(0,0);
-                                    return true;
-                                }
-
-                        }
-                        return true;
-                    }
-                });
-            }
-        });
-
-        /*
-        bottomNavigationView = findViewById(R.id.bottomBar);
-
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            bottomNavigationView.setOnItemSelectedListener(item -> {
 
                 switch (item.getItemId()){
                     case R.id.home:
                         return true;
 
                     case R.id.create:
-                        startActivity(new Intent(getApplicationContext(),CreateQuestionnaireActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
+                        if(isAdmin){
+                            Toast.makeText(this, "You are admin! You can not create Questionnaire", Toast.LENGTH_SHORT).show();
+                            return true;
+                        }
+                        else if (isActive.equals("0")){
+                           // startActivity(new Intent(getApplicationContext(), CreateTemplate.class));
+                            Toast.makeText(HomePageActivity.this, "Only Active User can create Questionnaires", Toast.LENGTH_SHORT).show();
+                            return true;
+                        }else if(isActive.equals("1")) {
+                            Toast.makeText(HomePageActivity.this, "Your request in  progress", Toast.LENGTH_SHORT).show();
+                            return true;
+                        }
+
+                        else {
+
+                            startActivity(new Intent(getApplicationContext(), CreateTemplate.class));
+                            return true;
+                        }
 
                     case R.id.questionnaires:
-                        startActivity(new Intent(getApplicationContext(),QuestionnairesActivity.class));
+                        startActivity(new Intent(getApplicationContext(), AllQuestionnaires.class));
                         overridePendingTransition(0,0);
                         return true;
 
                     case R.id.profile:
-                        startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
+
+                        if (isAdmin){
+                            startActivity(new Intent(getApplicationContext(),ProfileAdminActivity.class));
+                            overridePendingTransition(0,0);
+                            return true;
+                        }
+                        else {
+                            startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
+                            overridePendingTransition(0,0);
+                            return true;
+                        }
+
                 }
                 return true;
-            }
-        });*/
+            });
+        });
+
     }
 
     @Override
